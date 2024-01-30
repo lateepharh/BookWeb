@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&family=Mulish:wght@300;400;500;600&display=swap');
+.header{
+    display:flex;
+    justify-content: space-between;
+    align-items: justify content;
+    width: 100vw;
+    height: fit-content;
+    padding: 1rem;
+    background-color: #edfcfc;
+    color: #254e4e;
+    font-family: "Mulish";
+}
+a.active{
+    background-color: #254e4e;
+    color: #edfcfc;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 8px;
+}
+.nav,.logo{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.header img{
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+.header a{
+    text-decoration: none;
+    color: #c8eeee;
+    font-family: "Mulish";
+    font-size: 20px;
+}
+.sliderimage{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
