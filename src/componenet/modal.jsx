@@ -4,7 +4,7 @@ import axios from "axios";
 
 function Modal({ showdetails, item, onClose }) {
   const url =
-    "https://bookweb-4b78b/database/bookweb-4b78b-default-rtdb.firebaseio.com/books.json";
+    "https://react-book-api-8049c-default-rtbd.firebaseio.com/books.json";
   const submitBook = (item) => {
     fetch(url, {
       method: "POST",

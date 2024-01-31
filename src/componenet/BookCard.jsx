@@ -20,8 +20,9 @@ function BookCard({ bookData }) {
             <div
               className="card"
               key={books.id}
+              id={books.id}
               onClick={() => {
-                setShowdetails(true);
+                setShowdetails(!showdetails);
                 setItem(books);
               }}
             >
