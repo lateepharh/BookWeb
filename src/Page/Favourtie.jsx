@@ -15,8 +15,8 @@ function Favourtie() {
       </p>
     );
   } else {
-    contents = <BookList book={favouriteCxt.favourites} />;
-    console.log(favouriteCxt.favourites);
+    contents = <BookList book={favouriteCxt?.favourites} />;
+    console.log("contents", contents);
   }
   return (
     <div>

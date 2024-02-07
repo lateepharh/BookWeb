@@ -33,6 +33,8 @@ export function FaavouriteContextProvider(props) {
   }
 
   const contextValue = {
+    favorites: favourite,
+    totalFavourite: favourite.length,
     addBook: addFavourite,
     removeBook: removeFavourite,
     favouriteBook: FavouriteItem,

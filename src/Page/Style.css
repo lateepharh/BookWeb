@@ -4,3 +4,47 @@
     min-height: 70vh;
     background:  linear-gradient(#edfcfc, #96e9e9), url("../componenet/utils/library2.jpg") center/cover no-repeat;
 } */
+
+.card{
+    padding: 0.5rem;
+    box-shadow: 0 5px 5px #254e4e;
+    margin-top: 10px;
+    transition: .5s;
+    font-size: 10px;
+    font-family: "Mulish";
+    border-radius: 1rem;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+    color: #254e4e;
+}
+.card:hover{
+    background-color: #254e4e;
+    color: #fff;
+}
+.actions-btn{
+    cursor: pointer;
+    color: #254e4e;
+    border: 1px sold #254e4e;
+    background-color: transparent;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+}
+.actions-btn:active, .actions-btn:hover{
+    background-color:#edfcfc;
+}
+.card img{
+    width: 100%;
+    height: 200px;
+    border-radius: 1rem 1rem 00;
+    object-fit: contain;
+}
+.container{
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 1.8rem;
+    display: grid;
+    grid-template-columns: repeat(4,minmax(200px, 0.5fr));
+    gap: 20px;
+    box-sizing: border-box;
+}

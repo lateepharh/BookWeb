@@ -30,6 +30,7 @@ function HomePage() {
         console.log(books);
       });
   }, []);
+
   if (isLoading) {
     return (
       <section>
@@ -49,12 +50,12 @@ function HomePage() {
   );
 }
 
-export const BookList = ({ book }) => {
+export const BookList = (props) => {
   // const { book } = props;
-  console.log(book);
+  console.log(props.book);
   return (
     <section>
-      {book.map((data) => {
+      {props.book.map((data) => {
         return <Books key={data.key} {...data} id={data.id} />;
       })}
     </section>
@@ -62,6 +63,26 @@ export const BookList = ({ book }) => {
 };
 
 const Books = (props) => {
+  const [book, setBook] = useState([]);
+  const deleteBook = async (id) => {
+    await fetch(
+      `https://react-book-api-8049c-default-rtdb.firebaseio.com/books/${id}`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => {
+      if (res.status === 200) {
+        setBook(
+          book.filter((book) => {
+            return book.id !== id;
+          })
+        );
+      } else {
+        return;
+      }
+    });
+    console.log("Delete");
+  };
   const Id = props.id;
   const thumbnail =
     props.volumeInfo.imageLinks && props.volumeInfo.imageLinks.smallThumbnail;
@@ -70,32 +91,34 @@ const Books = (props) => {
     props.accessInfo.pdf && props.accessInfo.pdf.downloadLink;
 
   const favorite_CTX = useContext(Favourite_context);
-  const bookIsFavourite = favorite_CTX.favouriteBook(props.id);
+  const bookIsFavourite = favorite_CTX.favouriteBook(Id);
+  console.log("favorite", bookIsFavourite);
   function toggleFavouriteHandler() {
     if (bookIsFavourite) {
-      favorite_CTX.removeBook(props.id);
+      favorite_CTX.removeBook(Id);
     } else {
       favorite_CTX.addBook({
-        id: data.id,
+        id: props.id,
         thumbnail: thumbnail,
         title: title,
       });
     }
-    console.log("Favourite");
+    // console.log("Favourite");
   }
   // const handleDownload = ()=>{}
   return (
     <>
-      <div className="wrapper">
+      <div className="wrapper" key={props.id} id={Id}>
         <div className="card_book" key={Id}>
           <img src={thumbnail} alt="" />
           <h3>{title}</h3>
         </div>
         <div className="actions">
-          <button>
+          <button onClick={() => deleteBook(Id)}>Delete</button>
+          <button className="actions-btn">
             <a href={downloadLink}>Click here to download pdf</a>
           </button>
-          <button onClick={toggleFavouriteHandler}>
+          <button className="actions-btn" onClick={toggleFavouriteHandler}>
             {bookIsFavourite ? "Remove from Favourite" : "Add to favourite"}
           </button>
         </div>

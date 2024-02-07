@@ -65,55 +65,55 @@ function NewBooks() {
         </div>
       </div>
       {/* <div className="cointainer">{<BookCard bookData={bookData} />}</div> */}
-      {/* <div className="container"> */}
-      {bookData.map((book) => {
-        const Id = book.id;
-        const thumbnail =
-          book.volumeInfo.imageLinks &&
-          book.volumeInfo.imageLinks.smallThumbnail;
-        const description = book.volumeInfo.description;
-        return (
-          <Popup
-            key={Id}
-            trigger={
-              <div key={book.id}>
-                <div
-                  className="card"
-                  key={Id}
-                  id={Id}
-                  onClick={(e) => handleClick(e)}
-                >
-                  <img src={thumbnail} alt="" />
-                  <div className="title_bar">
-                    <h2>{book.volumeInfo.title}</h2>
+      <div className="container">
+        {bookData.map((book) => {
+          const Id = book.id;
+          const thumbnail =
+            book.volumeInfo.imageLinks &&
+            book.volumeInfo.imageLinks.smallThumbnail;
+          const description = book.volumeInfo.description;
+          return (
+            <Popup
+              key={Id}
+              trigger={
+                <div key={book.id}>
+                  <div
+                    className="card"
+                    key={Id}
+                    id={Id}
+                    onClick={(e) => handleClick(e)}
+                  >
+                    <img src={thumbnail} alt="" />
+                    <div className="title_bar">
+                      <h2>{book.volumeInfo.title}</h2>
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
-            modal
-            on="click"
-            mouseEnterDelay={0}
-            mouseLeaveDelay={300}
-          >
-            <div className="overlay-inner">
-              <button className="close">Close</button>
-              <div className="inner-box">
-                <img src={thumbnail} alt="" />
-                <div className="information">
-                  <h3>{book.volumeInfo.title}</h3>
-                  <h4>{book.volumeInfo.authors}</h4>
-                  <button>
-                    <a href={book.volumeInfo.previewLink}>more</a>
-                  </button>
+              }
+              modal
+              on="click"
+              mouseEnterDelay={0}
+              mouseLeaveDelay={300}
+            >
+              <div className="overlay-inner">
+                <button className="close">Close</button>
+                <div className="inner-box">
+                  <img src={thumbnail} alt="" />
+                  <div className="information">
+                    <h3>{book.volumeInfo.title}</h3>
+                    <h4>{book.volumeInfo.authors}</h4>
+                    <button>
+                      <a href={book.volumeInfo.previewLink}>more</a>
+                    </button>
+                  </div>
                 </div>
+                <div className="description">{description}</div>
+                <button onClick={() => submitBook(book)}>Add book</button>
               </div>
-              <div className="description">{description}</div>
-              <button onClick={() => submitBook(book)}>Add book</button>
-            </div>
-          </Popup>
-        );
-      })}
-      {/* </div> */}
+            </Popup>
+          );
+        })}
+      </div>
     </main>
   );
 }
