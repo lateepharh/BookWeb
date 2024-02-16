@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Slider from "../componenet/Slider";
-import Class from "./Page.module.css";
+// import Class from "./Page.module.css";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Favourite_context from "../componenet/store/favourite-context";
 function HomePage() {
@@ -30,7 +31,35 @@ function HomePage() {
         console.log(books);
       });
   }, []);
-
+  // const deleteBook = (id) => {
+  //   fetch(
+  //     `https://react-book-api-8049c-default-rtdb.firebaseio.com/books/${id}`,
+  //     {
+  //       method: "DELETE",
+  //     }
+  //   ).then((res) => {
+  //     if (res.status === 200) {
+  //       setLoadedbooks(
+  //         loadedbooks.filter((book) => {
+  //           return book.id !== id;
+  //         })
+  //       );
+  //     } else {
+  //       return;
+  //     }
+  //   });
+  //   console.log(`Deleteing item with ID: ${id}`);
+  // };
+  const deleteBook = async (id) => {
+    try {
+      await axios.delete(
+        `https://react-book-api-8049c-default-rtdb.firebaseio.com/books/${id}`
+      );
+      console.log(`Item ${id} deleted successfully`);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
   if (isLoading) {
     return (
       <section>
@@ -45,44 +74,27 @@ function HomePage() {
       {!loadedbooks.length && (
         <Link to="/books">Click here to see and find books</Link>
       )}
-      <BookList book={loadedbooks} />
+      <BookList book={loadedbooks} onDelete={deleteBook} />
     </main>
   );
 }
 
-export const BookList = (props) => {
+export const BookList = ({ book, onDelete }) => {
   // const { book } = props;
-  console.log(props.book);
+  console.log(book);
   return (
     <section>
-      {props.book.map((data) => {
-        return <Books key={data.key} {...data} id={data.id} />;
+      {book.map((data) => {
+        return (
+          <Books key={data.key} {...data} id={data.id} onDelete={onDelete} />
+        );
       })}
     </section>
   );
 };
 
 const Books = (props) => {
-  const [book, setBook] = useState([]);
-  const deleteBook = async (id) => {
-    await fetch(
-      `https://react-book-api-8049c-default-rtdb.firebaseio.com/books/${id}`,
-      {
-        method: "DELETE",
-      }
-    ).then((res) => {
-      if (res.status === 200) {
-        setBook(
-          book.filter((book) => {
-            return book.id !== id;
-          })
-        );
-      } else {
-        return;
-      }
-    });
-    console.log("Delete");
-  };
+  const { onDelete } = props;
   const Id = props.id;
   const thumbnail =
     props.volumeInfo.imageLinks && props.volumeInfo.imageLinks.smallThumbnail;
@@ -92,7 +104,7 @@ const Books = (props) => {
 
   const favorite_CTX = useContext(Favourite_context);
   const bookIsFavourite = favorite_CTX.favouriteBook(Id);
-  console.log("favorite", bookIsFavourite);
+  // console.log("favorite", bookIsFavourite);
   function toggleFavouriteHandler() {
     if (bookIsFavourite) {
       favorite_CTX.removeBook(Id);
@@ -114,7 +126,7 @@ const Books = (props) => {
           <h3>{title}</h3>
         </div>
         <div className="actions">
-          <button onClick={() => deleteBook(Id)}>Delete</button>
+          <button onClick={() => onDelete(Id)}>Delee</button>
           <button className="actions-btn">
             <a href={downloadLink}>Click here to download pdf</a>
           </button>

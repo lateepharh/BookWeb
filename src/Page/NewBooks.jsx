@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 // import BookCard from "../componenet/BookCard";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import "../componenet/styles.css";
 import "./Style.css";
+import { useNavigate } from "react-router-dom";
 
 function NewBooks() {
   const [search, setSearch] = React.useState("");
   const [bookData, setBookData] = React.useState([]);
+  const navigate = useNavigate();
   const bookSearch = (e) => {
     if (e.key === "Enter") {
       console.log("Clicked");
@@ -41,6 +43,7 @@ function NewBooks() {
         },
       }
     );
+    navigate("/", { replace: true });
 
     console.log("clickedd");
   };
